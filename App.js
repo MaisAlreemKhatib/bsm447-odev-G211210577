@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import Constants from 'expo-constants';
@@ -15,7 +16,14 @@ export default function App() {
   const [pilots, setPilots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
- const [attempt, setAttempt] = useState(0);
+  const [attempt, setAttempt] = useState(0);
+  const [search, setSearch] = useState('');
+
+const query = search.trim().toLowerCase();
+const filteredPilots = pilots.filter((item) => {
+  const fullName = `${item.Driver.givenName} ${item.Driver.familyName}`;
+  return fullName.toLowerCase().includes(query);
+});
 
   useEffect(() => {
     async function loadStandings() {
@@ -66,7 +74,26 @@ export default function App() {
 </View>
       ) : (
         <FlatList
-          data={pilots}
+          data={filteredPilots}
+ListHeaderComponent={
+  <View>
+    <TextInput
+      placeholder="Pilot adı veya soyadı ara"
+      value={search}
+      onChangeText={setSearch}
+      autoCapitalize="none"
+      autoCorrect={false}
+      style={{
+        borderWidth: 1,
+        borderColor: '#bbbbbb',
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 8,
+      }}
+    />
+    <Text>{filteredPilots.length} kayıt</Text>
+  </View>
+}
           keyExtractor={(item) => item.Driver.driverId}
           ListEmptyComponent={<Text>Sonuç bulunamadı</Text>}
           renderItem={({ item }) => (
