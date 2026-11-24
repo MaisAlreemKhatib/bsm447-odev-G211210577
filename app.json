@@ -11,12 +11,18 @@
     },
     "android": {
       "adaptiveIcon": {
-  "backgroundColor": "#181818",
-  "foregroundImage": "./assets/pist-puani.png"
-}
+        "backgroundColor": "#181818",
+        "foregroundImage": "./assets/pist-puani.png"
+      },
+      "package": "com.mais_02.bsm447odevG211210577"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3d6ed45c-b003-486c-bca4-d0d5aafc1ef5"
+      }
     }
   }
 }
